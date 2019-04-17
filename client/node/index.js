@@ -5,6 +5,12 @@ const proto = grpc.load({root: protoPath, file: 'supplier.proto' });
 
 const client = new proto.supplier.supplier_product('127.0.0.1:8080', grpc.credentials.createInsecure());
 
+const suppliers = {
+     name_supplier_1: "Coca Cola",
+     name_supplier_2: "Monster",
+     name_supplier_3: "Rockstar"
+}
+
 const products = {
     Cola: {
         id_product: 1,
@@ -30,5 +36,16 @@ client.findPreferredSupplier(products.Cola, (error, response) => {
     }
     else {
         console.log('Fehler', error.message);
+    }
+});
+
+client.findAllPreferredSupplier(suppliers, (error, response) => {
+    if(!error) {
+        let result = "";
+        result = response.name_supplier_1+", "+response.name_supplier_2+", "+response.name_supplier_3;
+        console.log("Alle praeferierte Zuliefere: "+result);
+    }
+    else {
+        console.log("Fehler", error.message);
     }
 });

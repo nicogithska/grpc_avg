@@ -4,6 +4,7 @@ package supplier;
 
 service supplier_product {
     rpc findPreferredSupplier (Product) returns (PrefSupp);
+    rpc findAllPreferredSupplier (Supplier) returns (Supplier);
 }
 
 message Product {
@@ -15,4 +16,10 @@ message Product {
 message PrefSupp {
     string product_name = 1;
     string supplier_name = 2;
+}
+
+message Supplier {
+    string name_supplier_1 = 1;
+    string name_supplier_2 = 2;
+    string name_supplier_3 = 3;
 }

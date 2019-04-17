@@ -12,7 +12,19 @@ server.addProtoService(proto.supplier.supplier_product.service, {
             product_name,
             supplier_name
         });
-    }  
+    },
+    
+    findAllPreferredSupplier(call, callback){
+        let name_supplier_1 = call.request.name_supplier_1;
+        let name_supplier_2 = call.request.name_supplier_2;
+        let name_supplier_3 = call.request.name_supplier_3;
+
+        callback(null, {
+            name_supplier_1,
+            name_supplier_2,
+            name_supplier_3
+        });
+    }
 });
 
 server.bind('127.0.0.1:8080', grpc.ServerCredentials.createInsecure());  
