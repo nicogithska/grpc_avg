@@ -4,28 +4,18 @@ const proto = grpc.load('proto/supplier.proto');
 const server = new grpc.Server();
 
 server.addProtoService(proto.supplier.supplier_product.service, {
-    findAllPreferredSuppliers(call, callback) {
-        let prefferedSuppliers = [];
-        for(var i = 0; i < suppliers.length;i++) {
-            prefferedSuppliers.push(suppliers.preffered_supplier[i])
-        }
-        
-        callback(null,{
-            prefferedSuppliers
-        });
-    }
-/*
     findPreferredSupplier(call, callback) {
+        let product_name = call.request.product_name;
+        let supplier_name = call.request.preffered_supplier;
 
-    },
-
-    setPreferredSupplierForProduct(call, callback) {
-
-    }
-*/    
+        callback(null, {
+            product_name,
+            supplier_name
+        });
+    }  
 });
 
-server.bind('0.0.0.0:50050', grpc.ServerCredentials.createInsecure());  
+server.bind('127.0.0.1:8080', grpc.ServerCredentials.createInsecure());  
 
 server.start();
-console.log('grpc server running on port:', '0.0.0.0:50050');
+console.log('grpc server running on port:', '127.0.0.1:8080');
