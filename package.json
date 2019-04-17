@@ -1,0 +1,14 @@
+{
+  "name": "grpc_avg",
+  "version": "1.0.0",
+  "description": "grpc_server_client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mani1021",
+  "license": "ISC",
+  "dependencies": {
+    "grpc": "^1.19.0"
+  }
+}
