@@ -11,6 +11,11 @@ const suppliers = {
      name_supplier_3: "Rockstar"
 }
 
+const pref_supp_for_prod = {
+    product_name: 'Rockstar',
+    supplier_name: 'CocaCola'
+}
+
 const products = {
     Cola: {
         id_product: 1,
@@ -44,6 +49,15 @@ client.findAllPreferredSupplier(suppliers, (error, response) => {
         let result = "";
         result = response.name_supplier_1+", "+response.name_supplier_2+", "+response.name_supplier_3;
         console.log("Alle praeferierte Zuliefere: "+result);
+    }
+    else {
+        console.log("Fehler", error.message);
+    }
+});
+
+client.setPreferredSupplierForProduct(pref_supp_for_prod, (error, response) => {
+    if(!error) {
+        console.log('Neuer Zulieferer gesetzt.');
     }
     else {
         console.log("Fehler", error.message);
