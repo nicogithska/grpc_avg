@@ -3,15 +3,33 @@ const grpc = require('grpc');
 const proto = grpc.load('proto/supplier.proto');
 const server = new grpc.Server();
 
-
-
 let Rockstar = new Object;
+let CocaCola = new Object;
+let Monster = new Object;
+
+const products = {
+    Cola: {
+        id_product: 1,
+        product_name: 'Cola',
+        preffered_supplier: 'CocaCola'
+    },
+    MonsterValentinoRossi: {
+        id_product: 2,
+        product_name: 'MonsterValentinoRossi',
+        preffered_supplier: 'Monster'
+    },
+    Rockstar: {
+        id_product: 3,
+        product_name: 'RockstarGuave',
+        preffered_supplier: 'Rockstar'
+    }
+}
 
 
 const func = (product_name, new_supp) => {
-    Rockstar.preffered_supplier = new_supp;
-    console.log(new_supp+' ist jez eine praeferierter Zulieferer für '+product_name)
+    product_name.preffered_supplier = new_supp;
 }
+
 
 server.addProtoService(proto.supplier.supplier_product.service, {
     findPreferredSupplier(call, callback) {
@@ -35,7 +53,7 @@ server.addProtoService(proto.supplier.supplier_product.service, {
             name_supplier_3
         });
     },
-
+    
     setPreferredSupplierForProduct(call, callback) {
         let product_name = call.request.product_name;
         let new_pref_supp = call.request.supplier_name;
@@ -43,8 +61,8 @@ server.addProtoService(proto.supplier.supplier_product.service, {
 
         func(product_name,new_pref_supp);
 
-        callback(null, {
-        });
+        callback(null, {isSet: true });
+
     }
 });
 

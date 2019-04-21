@@ -5,17 +5,6 @@ const proto = grpc.load({root: protoPath, file: 'supplier.proto' });
 
 const client = new proto.supplier.supplier_product('127.0.0.1:8080', grpc.credentials.createInsecure());
 
-const suppliers = {
-     name_supplier_1: "Coca Cola",
-     name_supplier_2: "Monster",
-     name_supplier_3: "Rockstar"
-}
-
-const pref_supp_for_prod = {
-    product_name: 'Rockstar',
-    supplier_name: 'CocaCola'
-}
-
 const products = {
     Cola: {
         id_product: 1,
@@ -34,10 +23,22 @@ const products = {
     }
 }
 
+const suppliers = {
+    name_supplier_1: "Coca Cola",
+    name_supplier_2: "Monster",
+    name_supplier_3: "Rockstar"
+}
+
+//Produkt und Zulieferer nach Bedarf ändern
+const pref_supp_for_prod = {
+    product_name: 'Rockstar',
+    supplier_name: 'CocaCola'
+}
+
 client.findPreferredSupplier(products.Cola, (error, response) => {
     if(!error) {
-        console.log('Produktname: '+response.product_name);
-        console.log('Praeferierter Zulieferer: '+response.supplier_name)
+        console.log('Produktname: '+ response.product_name);
+        console.log('Praeferierter Zulieferer: '+ response.supplier_name)
     }
     else {
         console.log('Fehler', error.message);
@@ -48,7 +49,7 @@ client.findAllPreferredSupplier(suppliers, (error, response) => {
     if(!error) {
         let result = "";
         result = response.name_supplier_1+", "+response.name_supplier_2+", "+response.name_supplier_3;
-        console.log("Alle praeferierte Zuliefere: "+result);
+        console.log("Alle praeferierte Zulieferer: "+result);
     }
     else {
         console.log("Fehler", error.message);
@@ -57,7 +58,7 @@ client.findAllPreferredSupplier(suppliers, (error, response) => {
 
 client.setPreferredSupplierForProduct(pref_supp_for_prod, (error, response) => {
     if(!error) {
-        console.log('Neuer Zulieferer gesetzt.');
+        console.log('Neuer Zulieferer gesetzt.', response);
     }
     else {
         console.log("Fehler", error.message);

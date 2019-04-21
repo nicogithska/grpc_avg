@@ -5,7 +5,7 @@ package supplier;
 service supplier_product {
     rpc findPreferredSupplier (Product) returns (PrefSupp);
     rpc findAllPreferredSupplier (Supplier) returns (Supplier);
-    rpc setPreferredSupplierForProduct (PrefSupp) returns (nix);
+    rpc setPreferredSupplierForProduct (PrefSupp) returns (isSet);
 }
 
 message Product {
@@ -25,6 +25,6 @@ message Supplier {
     string name_supplier_3 = 3;
 }
 
-message nix {
-
+message isSet {
+    bool isSet = 1;
 }
