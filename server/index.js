@@ -7,22 +7,34 @@ let Rockstar = new Object;
 let CocaCola = new Object;
 let Monster = new Object;
 
-const products = {
-    Cola: {
+const Cola = {
         id_product: 1,
         product_name: 'Cola',
         preffered_supplier: 'CocaCola'
-    },
-    MonsterValentinoRossi: {
+}
+
+const MonsterValentinoRossi = {
         id_product: 2,
         product_name: 'MonsterValentinoRossi',
         preffered_supplier: 'Monster'
-    },
-    Rockstar: {
+}
+
+const RockstarGuave = {
         id_product: 3,
         product_name: 'RockstarGuave',
         preffered_supplier: 'Rockstar'
-    }
+}
+
+const products = [Cola, MonsterValentinoRossi, RockstarGuave];
+
+
+const getfunc = (product_name) => {
+    for(let i = 0; i < products.length;i++ ) {
+        if(products[i].product_name == product_name) {
+            let supplier_names = products[i].preffered_supplier;
+            return supplier_names;
+        }
+   }
 }
 
 
@@ -43,14 +55,12 @@ server.addProtoService(proto.supplier.supplier_product.service, {
     },
     
     findAllPreferredSupplier(call, callback) {
-        let name_supplier_1 = call.request.name_supplier_1;
-        let name_supplier_2 = call.request.name_supplier_2;
-        let name_supplier_3 = call.request.name_supplier_3;
-
+        let product_name = call.request.product_name;
+        let name_suppliers = "";
+        name_suppliers += getfunc(product_name);
+       
         callback(null, {
-            name_supplier_1,
-            name_supplier_2,
-            name_supplier_3
+            name_suppliers
         });
     },
     

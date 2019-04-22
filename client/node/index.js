@@ -23,10 +23,8 @@ const products = {
     }
 }
 
-const suppliers = {
-    name_supplier_1: "Coca Cola",
-    name_supplier_2: "Monster",
-    name_supplier_3: "Rockstar"
+const product = {
+    product_name: 'MonsterValentinoRossi'
 }
 
 //Produkt und Zulieferer nach Bedarf ändern
@@ -45,11 +43,9 @@ client.findPreferredSupplier(products.Cola, (error, response) => {
     }
 });
 
-client.findAllPreferredSupplier(suppliers, (error, response) => {
+client.findAllPreferredSupplier(product, (error, response) => {
     if(!error) {
-        let result = "";
-        result = response.name_supplier_1+", "+response.name_supplier_2+", "+response.name_supplier_3;
-        console.log("Alle praeferierte Zulieferer: "+result);
+        console.log("Alle praeferierte Zulieferer: " , response);
     }
     else {
         console.log("Fehler", error.message);
