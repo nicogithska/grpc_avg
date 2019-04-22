@@ -1,7 +1,9 @@
-Zum Starten des Servers in der CLI folgende Commandos eingeben:
+Zum Starten des Servers und des Client folgende Schritte durchführen:
 
-1. node server/index.js
+1. "npm install" im Terminal ausführen um Dependencies zu erhalten
 
-2. Neuen Terminal öffnen
+2. "node server/index.js" in einem Terminal aufrufen
 
-3. node client/node/index.js
+3. Neuen Terminal öffnen
+
+4. "node client/node/index.js" in neuem Terminal ausführen

@@ -28,36 +28,46 @@ const RockstarGuave = {
 const products = [Cola, MonsterValentinoRossi, RockstarGuave];
 
 
-const getfunc = (product_name) => {
-    for(let i = 0; i < products.length;i++ ) {
-        if(products[i].product_name == product_name) {
-            let supplier_names = products[i].preffered_supplier;
-            return supplier_names;
+const getPrefSupp = (product_name) => {
+    let pref_supp = "";
+    let pn = product_name;
+    for(let i = 0;i < products.length; i++) {
+        if(products[i].product_name == pn) {
+            pref_supp += products[i].preffered_supplier;
+            return pref_supp;
         }
-   }
+    }
+}
+
+const getAllPrefSupps = () => {  
+    let supplier_names = "";
+    for(let i = 0; i < products.length;i++ ) {
+            supplier_names += products[i].preffered_supplier+"; ";
+    }
+   
+    return supplier_names;
 }
 
 
-const func = (product_name, new_supp) => {
+const setSuppForProd = (product_name, new_supp) => {
     product_name.preffered_supplier = new_supp;
 }
 
 
 server.addProtoService(proto.supplier.supplier_product.service, {
     findPreferredSupplier(call, callback) {
-        let product_name = call.request.product_name;
-        let supplier_name = call.request.preffered_supplier;
+        let product_name = call.request.name_product;
+        let supplier_name = "";
+        supplier_name += getPrefSupp(product_name);
         
         callback(null, {
-            product_name,
             supplier_name
         });
     },
     
     findAllPreferredSupplier(call, callback) {
-        let product_name = call.request.product_name;
         let name_suppliers = "";
-        name_suppliers += getfunc(product_name);
+        name_suppliers += getAllPrefSupps();
        
         callback(null, {
             name_suppliers
@@ -69,7 +79,7 @@ server.addProtoService(proto.supplier.supplier_product.service, {
         let new_pref_supp = call.request.supplier_name;
 
 
-        func(product_name,new_pref_supp);
+        setSuppForProd(product_name,new_pref_supp);
 
         callback(null, {isSet: true });
 

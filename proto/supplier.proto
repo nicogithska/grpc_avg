@@ -3,25 +3,26 @@ syntax = "proto3";
 package supplier;
 
 service supplier_product {
-    rpc findPreferredSupplier (Product) returns (PrefSupp);
-    rpc findAllPreferredSupplier (Product) returns (SupplierList);
-    rpc setPreferredSupplierForProduct (PrefSupp) returns (isSet);
+    rpc findPreferredSupplier (ProductName) returns (PrefSupp);
+    rpc findAllPreferredSupplier (SearchRequest) returns (SupplierList);
+    rpc setPreferredSupplierForProduct (PrefSuppForProduct) returns (isSet);
 }
 
-message Product {
-    int32 id_product = 1;
-    string product_name = 2;
-    string preffered_supplier = 3;
+message SearchRequest {
+    string search = 1;
 }
 
 message PrefSupp {
+    string supplier_name = 1;
+}
+
+message PrefSuppForProduct {
     string product_name = 1;
     string supplier_name = 2;
 }
 
 message ProductName {
-    string name_product= 1;
-
+    string name_product = 1;
 }
 
 message isSet {
